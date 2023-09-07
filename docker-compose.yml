@@ -1,0 +1,22 @@
+version: '3.8'
+ 
+services:
+  openwrt:
+    image: supes_openwrt
+    container_name: openwrt
+    command: /sbin/init
+    privileged: true
+    restart: always
+    networks:
+      openwrt-macvlan:
+        ipv4_address: 10.1.1.11
+ 
+networks:
+  openwrt-macvlan:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 10.1.1.0/24
+          gateway: 10.1.1.1
